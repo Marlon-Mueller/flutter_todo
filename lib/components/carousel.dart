@@ -31,8 +31,10 @@ class _ToDoCarousel extends State<ToDoCarousel> {
     for (int i = 0; i < 5; i++) {
       var newCard = Container(
           child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 10,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Container(
           color: getColor(),
         ),
@@ -43,7 +45,7 @@ class _ToDoCarousel extends State<ToDoCarousel> {
     slider = CarouselSlider(
       items: cards,
       options: CarouselOptions(
-          height: 400, enlargeCenterPage: true, enableInfiniteScroll: false),
+          height: 500, enlargeCenterPage: true, enableInfiniteScroll: false),
     );
   }
 
