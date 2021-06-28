@@ -9,83 +9,86 @@ class ToDoDrawer extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return Container(
-        color: Colors.white,
-        width: width,
-        height: height / 3.5,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-          child: Column(
-            children: <Widget>[
-              Icon(
-                Icons.arrow_drop_up_sharp,
-                color: Colors.black,
-                size: 15,
+    return ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        child: Container(
+            color: Colors.deepOrangeAccent,
+            width: width,
+            height: height / 3,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+              child: Column(
+                children: <Widget>[
+                  Icon(
+                    Icons.arrow_drop_up_sharp,
+                    color: Colors.black,
+                    size: 15,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: MaterialButton(
+                      color: Colors.lightBlue[100],
+                      child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text("Kalender "),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: Colors.black,
+                                size: 15,
+                              )
+                            ],
+                          )),
+                      onPressed: () {},
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2.5,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: MaterialButton(
+                        color: Colors.lightBlue[100],
+                        child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Text("Checkliste "),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.black,
+                                  size: 15,
+                                )
+                              ],
+                            )),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    new Home()), //öffnen des Kalenders
+                          );
+                        }),
+                  ),
+                ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: MaterialButton(
-                  color: Colors.red,
-                  child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text("Kalender"),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Icon(
-                            Icons.favorite,
-                            color: Colors.black,
-                            size: 15,
-                          )
-                        ],
-                      )),
-                  onPressed: () {},
-                ),
-              ),
-              SizedBox(
-                height: 2.5,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: MaterialButton(
-                    color: Colors.red,
-                    child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Text("Checkliste"),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Icon(
-                              Icons.favorite,
-                              color: Colors.black,
-                              size: 15,
-                            )
-                          ],
-                        )),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                new Home()), //öffnen des Kalenders
-                      );
-                    }),
-              ),
-            ],
-          ),
-        ));
+            )));
   }
 }
 

@@ -12,7 +12,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Positioned(top: 900, left: 0, child: ToDoDrawer()),
-    );
+        child: Scaffold(
+            body: Stack(children: [
+      Positioned(
+          bottom: -(MediaQuery.of(context).size.height / 3),
+          left: 0,
+          child: ToDoDrawer()),
+    ])));
   }
 }
