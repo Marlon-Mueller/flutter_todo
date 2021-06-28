@@ -32,8 +32,7 @@ class _ToDoCarousel extends State<ToDoCarousel> {
       var newCard = Container(
           child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
+            borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Container(
           color: getColor(),
         ),
