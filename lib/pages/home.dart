@@ -20,25 +20,52 @@ class _HomeState extends State<Home> {
 
     return Container(
         child: Scaffold(
-            body: GestureDetector(
-                onTap: () {
-                  showfulldrawer = true;
-                },
-                child: Container(
-                    child: Stack(children: [
-                  BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                    child: Container(color: Colors.black.withOpacity(0.15)),
-                  ),
-                  AnimatedPositioned(
-                      curve: Curves.easeInOut,
-                      duration: Duration(milliseconds: 200),
-                      bottom: (showfulldrawer)
-                          ? -50
-                          : -(MediaQuery.of(context).size.height / 3),
-                      left: 0,
-                      child: ToDoDrawer()),
-                ])))));
+      body: GestureDetector(
+          onTap: () {
+            showfulldrawer = true;
+          },
+          child: Container(
+              child: Stack(children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Container(color: Colors.black.withOpacity(0.15)),
+            ),
+            AnimatedPositioned(
+                curve: Curves.easeInOut,
+                duration: Duration(milliseconds: 200),
+                bottom: (showfulldrawer)
+                    ? -50
+                    : -(MediaQuery.of(context).size.height / 3),
+                left: 0,
+                child: ToDoDrawer()),
+          ]))),
+    ));
+  }
+}
+
+class ScreenArguments {
+  final String category;
+
+  ScreenArguments(this.category);
+}
+
+class ExtractArgumentsScreen extends StatelessWidget {
+  static const routeName = '/extractArguments';
+
+  @override
+  Widget build(BuildContext context) {
+    // Extract the arguments from the current ModalRoute
+    // settings and cast them as ScreenArguments.
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(args.category),
+      ),
+      body: Center(
+        child: Text(args.category),
+      ),
+    );
   }
 }
 

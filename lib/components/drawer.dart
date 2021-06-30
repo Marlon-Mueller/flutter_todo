@@ -126,7 +126,7 @@ class DropdownInDrawer extends StatefulWidget {
 }
 
 class _DropdownInDrawerState extends State<DropdownInDrawer> {
-  String dropdownValue = 'School';
+  String dropdownValue = 'Schule';
 
   @override
   Widget build(BuildContext context) {
@@ -146,8 +146,13 @@ class _DropdownInDrawerState extends State<DropdownInDrawer> {
         setState(() {
           dropdownValue = newValue!;
           Navigator.of(context).pop();
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) => new Home()));
+          Navigator.pushNamed(
+            context,
+            ExtractArgumentsScreen.routeName,
+            arguments: ScreenArguments(
+              newValue,
+            ),
+          );
         });
       },
       items: <String>['Schule', 'Arbeit', 'Freizeit', 'Haushalt']
