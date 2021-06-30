@@ -12,7 +12,7 @@ class ToDoDrawer extends StatelessWidget {
     return ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(20)),
         child: Container(
-            color: Colors.deepOrangeAccent,
+            color: Color.fromRGBO(82, 82, 82, 1),
             width: width,
             height: height + 50,
             child: Padding(
@@ -30,6 +30,7 @@ class ToDoDrawer extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
+                      color: Color.fromRGBO(255, 255, 255, 1),
                     ),
                   ),
                   SizedBox(
@@ -38,7 +39,7 @@ class ToDoDrawer extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: MaterialButton(
-                      color: Colors.lightBlue[100],
+                      color: Color.fromRGBO(255, 255, 255, 0.5),
                       child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: Row(
@@ -65,7 +66,7 @@ class ToDoDrawer extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: MaterialButton(
-                        color: Colors.lightBlue[100],
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
                         child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
@@ -93,13 +94,77 @@ class ToDoDrawer extends StatelessWidget {
                           );
                         }),
                   ),
-                  //Dropdown
+                  SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Container(
+                      height: 40,
+                      color: Color.fromRGBO(255, 255, 255, 0.5),
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            DropdownInDrawer(),
+                          ]),
+                    ),
+                  ),
                 ],
               ),
             )));
   }
 }
 
+//Dropdown Menü
+class DropdownInDrawer extends StatefulWidget {
+  const DropdownInDrawer({Key? key}) : super(key: key);
+
+  @override
+  State<DropdownInDrawer> createState() => _DropdownInDrawerState();
+}
+
+class _DropdownInDrawerState extends State<DropdownInDrawer> {
+  String dropdownValue = 'School';
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      dropdownColor: Color.fromRGBO(255, 255, 255, 1),
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward, color: Colors.black),
+      iconSize: 24,
+      elevation: 16,
+      style: const TextStyle(
+        color: Colors.black,
+      ),
+      underline: Container(
+        color: Colors.transparent,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+          Navigator.of(context).pop();
+          Navigator.push(context,
+              MaterialPageRoute(builder: (BuildContext context) => new Home()));
+        });
+      },
+      items: <String>['Schule', 'Arbeit', 'Freizeit', 'Haushalt']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Center(
+            child: Text(
+              value,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
 
 //simple old drawer in comment not use
 
