@@ -6,7 +6,7 @@ import '../pages/home.dart';
 class ToDoDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height / 3;
     double width = MediaQuery.of(context).size.width;
 
     return ClipRRect(
@@ -14,7 +14,7 @@ class ToDoDrawer extends StatelessWidget {
         child: Container(
             color: Colors.deepOrangeAccent,
             width: width,
-            height: height / 3,
+            height: height + 50,
             child: Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
@@ -24,6 +24,13 @@ class ToDoDrawer extends StatelessWidget {
                     Icons.arrow_drop_up_sharp,
                     color: Colors.black,
                     size: 15,
+                  ),
+                  Text(
+                    "Checklistenmenü",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(
                     height: 20,
