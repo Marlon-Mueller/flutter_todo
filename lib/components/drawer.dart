@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 import '../pages/home.dart';
+import '../pages/calender.dart';
 
 class ToDoDrawer extends StatelessWidget {
   @override
@@ -57,7 +58,14 @@ class ToDoDrawer extends StatelessWidget {
                               )
                             ],
                           )),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    new Calenderpage()));
+                      },
                     ),
                   ),
                   SizedBox(
