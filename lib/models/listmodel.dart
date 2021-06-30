@@ -1,17 +1,10 @@
+import 'dart:html';
+
+import 'package:flutter_todo/models/taskmodel.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'listmodel.g.dart';
-
-class Task {
-  @HiveField(2)
-  String name;
-
-  @HiveField(3)
-  bool checked;
-
-  Task({required this.name, required this.checked});
-}
 
 @HiveType(typeId: 0)
 class ToDoList {
@@ -22,4 +15,9 @@ class ToDoList {
 
   @HiveField(1)
   late List<Task> tasks;
+
+  @override
+  String toString() {
+    return 'List: {name: ${name}, tasks: ${tasks}}';
+  }
 }
