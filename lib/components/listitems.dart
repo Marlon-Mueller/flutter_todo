@@ -42,7 +42,7 @@ class _TodoListitemsState extends State<TodoListitems> {
                 child: Center(
                   child: ListView.builder(
                       padding: EdgeInsets.only(
-                          bottom: 8.0, top: 8.0, left: 80.0, right: 80.0),
+                          bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
                       itemCount: listobjects.length,
                       itemBuilder: (context, i) {
                         return Listrows(listobjects[i]);
@@ -67,7 +67,7 @@ class Glassbox extends StatelessWidget {
     return ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: Container(
-          width: width,
+          width: 250,
           height: height,
           child: Stack(
             children: [
@@ -115,38 +115,47 @@ class Listrows extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double xWidth = size.width * 0.40;
     double xHeight = size.height * 0.06;
+    var between = SizedBox(
+      height: 70,
+    );
     return Container(
       child: SizedBox(
-        height: 40,
-        child: Container(
-          child: Glassbox(
-              width: xWidth,
-              height: xHeight,
-              child: Center(
-                child: ListView(children: [
-                  ListTile(
-                    leading: Theme(
-                        data: Theme.of(context).copyWith(
-                          unselectedWidgetColor: Colors.white.withOpacity(0.5),
+        height: 55,
+        child: Stack(
+          children: [
+            between,
+            between,
+            Glassbox(
+                width: xWidth,
+                height: xHeight,
+                child: Center(
+                  child: ListView(children: [
+                    ListTile(
+                      leading: Theme(
+                          data: Theme.of(context).copyWith(
+                            unselectedWidgetColor:
+                                Colors.white.withOpacity(0.5),
+                          ),
+                          child: Checkbox(
+                            value: false,
+                            onChanged: (bool? value) {},
+                          )),
+                      title: Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.5),
+                          fontSize: 20,
                         ),
-                        child: Checkbox(
-                          value: false,
-                          onChanged: (bool? value) {},
-                        )),
-                    title: Text(
-                      title,
-                      style: TextStyle(
+                      ),
+                      trailing: Icon(
+                        Icons.delete_outline,
+                        size: 25,
                         color: Colors.white.withOpacity(0.5),
-                        fontSize: 10,
                       ),
                     ),
-                    trailing: Icon(
-                      Icons.delete_outline,
-                      color: Colors.white.withOpacity(0.5),
-                    ),
-                  ),
-                ]),
-              )),
+                  ]),
+                )),
+          ],
         ),
       ),
     );

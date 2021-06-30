@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import "dart:math";
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_todo/components/listitems.dart';
+import './listitems.dart';
 
 class ToDoCarousel extends StatefulWidget {
   const ToDoCarousel({Key? key}) : super(key: key);
@@ -10,19 +11,6 @@ class ToDoCarousel extends StatefulWidget {
 }
 
 class _ToDoCarousel extends State<ToDoCarousel> {
-  final colors = [
-    Color.fromRGBO(255, 107, 178, 1),
-    Color.fromRGBO(171, 215, 99, 1),
-    Color.fromRGBO(118, 208, 227, 1),
-    Color.fromRGBO(159, 107, 255, 1)
-  ];
-
-  getColor() {
-    var _random = new Random();
-    var color = colors[_random.nextInt(colors.length)];
-    return color;
-  }
-
   var cards = <Widget>[];
   var slider;
 
@@ -31,10 +19,12 @@ class _ToDoCarousel extends State<ToDoCarousel> {
     for (int i = 0; i < 5; i++) {
       var newCard = Container(
           child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 10,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Container(
-          color: getColor(),
+          child: TodoListitems(),
         ),
       ));
       cards.add(newCard);
@@ -43,7 +33,7 @@ class _ToDoCarousel extends State<ToDoCarousel> {
     slider = CarouselSlider(
       items: cards,
       options: CarouselOptions(
-          height: 400, enlargeCenterPage: true, enableInfiniteScroll: false),
+          height: 500, enlargeCenterPage: true, enableInfiniteScroll: false),
     );
   }
 
