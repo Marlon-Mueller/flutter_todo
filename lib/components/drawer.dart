@@ -89,10 +89,11 @@ class ToDoDrawer extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                    new Home()), //öffnen des Kalenders
+                                    new Home()), //öffnen der Checkleiste
                           );
                         }),
                   ),
+                  //Dropdown
                 ],
               ),
             )));
