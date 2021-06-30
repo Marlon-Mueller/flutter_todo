@@ -4,10 +4,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 part 'listmodel.g.dart';
 
 class Task {
+  @HiveField(2)
   String name;
+
+  @HiveField(3)
   bool checked;
 
-  Task(this.name, this.checked);
+  Task({required this.name, required this.checked});
 }
 
 @HiveType(typeId: 0)

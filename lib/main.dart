@@ -10,8 +10,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ToDoListAdapter());
   var box = await Hive.openBox<ToDoList>('Homework');
-  var todo = ToDoList(
-      name: 'math', tasks: [Task('task one', false), Task('task two', true)]);
+  var todo = ToDoList(name: 'math', tasks: [
+    Task(name: 'task one', checked: false),
+    Task(name: 'task two', checked: true)
+  ]);
   /*  await box.add(todo);
   print(Hive.box<ToDoList>('math')); */
 
