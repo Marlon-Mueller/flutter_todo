@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'todoList.g.dart';
+part 'listmodel.g.dart';
 
 class Task {
   String name;
