@@ -1,6 +1,9 @@
 import 'dart:ui';
 import "dart:math";
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/models/listmodel.dart';
+import 'package:flutter_todo/models/taskmodel.dart';
+import 'package:flutter_todo/hiveservice.dart' as hiveService;
 
 class TodoListitems extends StatefulWidget {
   @override
@@ -8,12 +11,29 @@ class TodoListitems extends StatefulWidget {
 }
 
 class _TodoListitemsState extends State<TodoListitems> {
+  makeLists() async {
+    var todo = ToDoList(name: 'math', tasks: [
+      Task(name: 'buch lesen', checked: false),
+      Task(name: 'Arbeitsblatt', checked: false)
+    ]);
+    await hiveService.HiveService().saveList('School', todo);
+    toDoLists = await hiveService.HiveService().getLists('School');
+    print(toDoLists.toString());
+  }
+
+  var toDoLists = [];
+
+  _TodoListitemsState() {
+    makeLists();
+  }
+
   List<String> listobjects = [
     'Beispiel1',
     'Beispiel2',
     'Beispiel3',
     'Beispiel4',
   ];
+
   void addListitem(String listitem) {
     setState(() {
       listobjects.add(listitem);
@@ -43,9 +63,9 @@ class _TodoListitemsState extends State<TodoListitems> {
                   child: ListView.builder(
                       padding: EdgeInsets.only(
                           bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
-                      itemCount: listobjects.length,
+                      itemCount: toDoLists[0].tasks.length,
                       itemBuilder: (context, i) {
-                        return Listrows(listobjects[i]);
+                        return Listrows(toDoLists[0].tasks[i].name);
                       }),
                 ))));
   }
