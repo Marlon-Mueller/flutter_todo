@@ -6,21 +6,19 @@ import 'package:flutter_todo/models/taskmodel.dart';
 import 'pages/home.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import './hiveservice.dart';
 
 void main() async {
+  //Initialize Hive database
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(ToDoListAdapter());
   Hive.registerAdapter(TaskAdapter());
-  var box = await Hive.openBox<ToDoList>('Homework');
-  var todo = ToDoList(name: 'math', tasks: [
-    Task(name: 'task one', checked: false),
-    Task(name: 'task two', checked: true)
-  ]);
-  await box.put('math', todo);
-  await box.add(todo);
-  var answer = box.get('math');
-  print(answer.toString());
+
+  /* await Hive.openBox<ToDoList>('School');
+  await Hive.openBox<ToDoList>('Work');
+  await Hive.openBox<ToDoList>('Freetime');
+  await Hive.openBox<ToDoList>('Household'); */
 
   runApp(MyApp());
 }
