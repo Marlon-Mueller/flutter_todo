@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/pages/home.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Calenderpage extends StatefulWidget {
@@ -57,6 +58,37 @@ class _CalenderpageState extends State<Calenderpage> {
             ),
             headerStyle: HeaderStyle(
               formatButtonVisible: false,
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 100.0, right: 0.0),
+            child: MaterialButton(
+              color: Color.fromRGBO(255, 255, 255, 0.5),
+              hoverColor: Colors.lightGreen,
+              child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text("Checkliste "),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Icon(
+                        Icons.check_sharp,
+                        color: Colors.black,
+                        size: 15,
+                      )
+                    ],
+                  )),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => new Home()));
+              },
             ),
           ),
         ]));
