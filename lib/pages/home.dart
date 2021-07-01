@@ -14,10 +14,6 @@ class _HomeState extends State<Home> {
   bool showfulldrawer = true;
   @override
   Widget build(BuildContext context) {
-    var holdmenu = 60;
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-
     return Container(
         child: Scaffold(
       body: GestureDetector(

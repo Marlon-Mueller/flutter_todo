@@ -41,6 +41,7 @@ class ToDoDrawer extends StatelessWidget {
                         width: double.infinity,
                         child: MaterialButton(
                           color: Color.fromRGBO(255, 255, 255, 0.5),
+                          hoverColor: Colors.lightGreen,
                           child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
@@ -53,7 +54,7 @@ class ToDoDrawer extends StatelessWidget {
                                     height: 10,
                                   ),
                                   Icon(
-                                    Icons.arrow_forward,
+                                    Icons.calendar_today,
                                     color: Colors.black,
                                     size: 15,
                                   )
@@ -76,6 +77,7 @@ class ToDoDrawer extends StatelessWidget {
                         width: double.infinity,
                         child: MaterialButton(
                             color: Color.fromRGBO(255, 255, 255, 0.5),
+                            hoverColor: Colors.lightGreen,
                             child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
@@ -88,7 +90,7 @@ class ToDoDrawer extends StatelessWidget {
                                       height: 10,
                                     ),
                                     Icon(
-                                      Icons.arrow_forward,
+                                      Icons.check_sharp,
                                       color: Colors.black,
                                       size: 15,
                                     )
@@ -109,17 +111,38 @@ class ToDoDrawer extends StatelessWidget {
                       ),
                       SizedBox(
                         width: double.infinity,
-                        child: Container(
-                          height: 40,
+                        height: 38,
+                        child: MaterialButton(
+                          onPressed: () {},
                           color: Color.fromRGBO(255, 255, 255, 0.5),
-                          padding: const EdgeInsets.all(10.0),
+                          hoverColor: Colors.lightGreen,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                DropdownInDrawer(),
+                              ],
+                            ),
+                          ),
+                        ),
+                        /*width: double.infinity,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                          ),
+                          height: 40,
+
+                          //padding: const EdgeInsets.all(10.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 DropdownInDrawer(),
                               ]),
-                        ),
+                        ),*/
                       ),
                     ],
                   ),
@@ -143,9 +166,9 @@ class _DropdownInDrawerState extends State<DropdownInDrawer> {
     return DropdownButton<String>(
       dropdownColor: Color.fromRGBO(255, 255, 255, 1),
       value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward, color: Colors.black),
-      iconSize: 24,
-      elevation: 16,
+      icon: const Icon(Icons.format_list_bulleted_sharp, color: Colors.black),
+      iconSize: 15,
+      //elevation: 16,
       style: const TextStyle(
         color: Colors.black,
       ),
@@ -155,14 +178,14 @@ class _DropdownInDrawerState extends State<DropdownInDrawer> {
       onChanged: (String? newValue) {
         setState(() {
           dropdownValue = newValue!;
-          Navigator.of(context).pop();
+          /*Navigator.of(context).pop();
           Navigator.pushNamed(
             context,
             ExtractArgumentsScreen.routeName,
             arguments: ScreenArguments(
               newValue,
             ),
-          );
+          );*/
         });
       },
       items: <String>['Schule', 'Arbeit', 'Freizeit', 'Haushalt']
