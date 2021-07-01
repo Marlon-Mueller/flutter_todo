@@ -24,9 +24,7 @@ void main() async {
     Task(name: 'Arbeitsblatt nummer 3', checked: false),
     Task(name: 'dritte Aufgabe', checked: false)
   ]);
-  await HiveService().saveList('School', todo);
-
-  print(await HiveService().getLists('School'));
+  /* await HiveService().saveList('School', todo); */
 
   runApp(MyApp());
 }
