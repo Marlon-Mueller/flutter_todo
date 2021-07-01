@@ -20,12 +20,27 @@ void main() async {
   await Hive.openBox<ToDoList>('Work');
   await Hive.openBox<ToDoList>('Freetime');
   await Hive.openBox<ToDoList>('Household'); */
-  var todo = ToDoList(name: 'Physik', tasks: [
+  var todo = ToDoList(name: 'Mathe', tasks: [
+    Task(name: 'Aufgabe 1', checked: false),
+    Task(name: 'Aufgabe 2', checked: false)
+  ]);
+
+  var todo2 = ToDoList(name: 'Physik', tasks: [
     Task(name: 'Buch Aufgaben 1-3', checked: false),
     Task(name: 'Arbeitsblatt nummer 3', checked: false),
     Task(name: 'dritte Aufgabe', checked: false)
   ]);
+
+  var todo3 = ToDoList(name: 'Deutsch', tasks: [
+    Task(name: 'Aufgabe 1', checked: false),
+    Task(name: 'Aufgabe 2', checked: false),
+    Task(name: 'Aufgabe 3', checked: false),
+    Task(name: 'Aufgabe 4', checked: false),
+  ]);
+
   await HiveService().saveList('School', todo);
+  await HiveService().saveList('School', todo2);
+  await HiveService().saveList('School', todo3);
 
   runApp(MyApp());
 }

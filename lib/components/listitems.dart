@@ -20,7 +20,6 @@ class _TodoListitemsState extends State<TodoListitems> {
   void initState() {
     super.initState();
     toDoList = widget.toDoList;
-    print('test:$toDoList');
     /* toDoLists = makeLists();
     makeLists().then((data) => addCardData(data)); */
   }
@@ -46,32 +45,47 @@ class _TodoListitemsState extends State<TodoListitems> {
         child: Scaffold(
             body: Container(
                 color: getColor(),
-                child: Stack(
-                  children: [
-                    Center(
-                      child: ListView.builder(
-                          padding: EdgeInsets.only(
-                              bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
-                          itemCount: toDoList.tasks.length,
-                          itemBuilder: (context, i) {
-                            return Container(
-                                child: Stack(children: [
-                              Inputfield(),
-                              Listrows(toDoList.tasks[i].name),
-                            ]));
-                          }),
+                child: Stack(children: [
+                  Center(
+                    child: ListView.builder(
+                        padding: EdgeInsets.only(
+                            bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
+                        itemCount: toDoList.tasks.length,
+                        itemBuilder: (context, i) {
+                          return Container(
+                              child: Stack(children: [
+                            /* Inputfield(), */
+                            Listrows(toDoList.tasks[i].name),
+                          ]));
+                        }),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 400.0, left: 200.0),
+                    child: FloatingActionButton(
+                      backgroundColor: Colors.white.withOpacity(0.6),
+                      onPressed: pushEntry,
+                      child: Icon(Icons.add,
+                          size: 25, color: Colors.white.withOpacity(0.5)),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 400.0, left: 200.0),
-                      child: FloatingActionButton(
-                        backgroundColor: Colors.white.withOpacity(0.6),
-                        onPressed: pushEntry,
-                        child: Icon(Icons.add,
-                            size: 25, color: Colors.white.withOpacity(0.5)),
+                  ),
+                  Center(
+                      child: Container(
+                    margin: const EdgeInsets.only(bottom: 420),
+                    child: Glassbox(
+                      width: 100,
+                      height: 20,
+                      child: Center(
+                        child: Text(
+                          toDoList.name,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.7),
+                            fontSize: 20,
+                          ),
+                        ),
                       ),
                     ),
-                  ],
-                ))));
+                  )),
+                ]))));
   }
 }
 
@@ -110,7 +124,7 @@ class Glassbox extends StatelessWidget {
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black.withOpacity(0.15), blurRadius: 25)
+                          color: Colors.black.withOpacity(0.10), blurRadius: 25)
                     ],
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
@@ -167,7 +181,7 @@ class Listrows extends StatelessWidget {
                       title: Text(
                         title,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withOpacity(0.7),
                           fontSize: 20,
                         ),
                       ),
