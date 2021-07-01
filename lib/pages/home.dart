@@ -26,18 +26,7 @@ class _HomeState extends State<Home> {
           },
           child: Container(
               child: Stack(children: [
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-              child: Container(color: Colors.black.withOpacity(0.15)),
-            ),
-            AnimatedPositioned(
-                curve: Curves.easeInOut,
-                duration: Duration(milliseconds: 200),
-                bottom: (showfulldrawer)
-                    ? -50
-                    : -(MediaQuery.of(context).size.height / 3),
-                left: 0,
-                child: ToDoDrawer()),
+            ToDoDrawer(),
           ]))),
     ));
   }
