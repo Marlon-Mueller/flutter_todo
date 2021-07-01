@@ -3,41 +3,36 @@ import "dart:math";
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/models/listmodel.dart';
 import 'package:flutter_todo/models/taskmodel.dart';
-import 'package:flutter_todo/hiveservice.dart' as hiveService;
+import 'package:flutter_todo/hiveservice.dart';
+
+Future<List<ToDoList>> makeLists() async {
+  var todo = ToDoList(name: 'math', tasks: [
+    Task(name: 'buch lesen', checked: false),
+    Task(name: 'Arbeitsblatt', checked: false)
+  ]);
+  /* await hiveService.HiveService().saveList('School', todo); */
+  return await HiveService().getLists('School');
+}
 
 class TodoListitems extends StatefulWidget {
+  final ToDoList toDoList;
+
+  const TodoListitems({Key? key, required this.toDoList}) : super(key: key);
+
   @override
   _TodoListitemsState createState() => _TodoListitemsState();
 }
 
 class _TodoListitemsState extends State<TodoListitems> {
-  makeLists() async {
-    var todo = ToDoList(name: 'math', tasks: [
-      Task(name: 'buch lesen', checked: false),
-      Task(name: 'Arbeitsblatt', checked: false)
-    ]);
-    await hiveService.HiveService().saveList('School', todo);
-    toDoLists = await hiveService.HiveService().getLists('School');
-    print(toDoLists.toString());
-  }
-
-  var toDoLists = [];
-
-  _TodoListitemsState() {
-    makeLists();
-  }
-
-  List<String> listobjects = [
-    'Beispiel1',
-    'Beispiel2',
-    'Beispiel3',
-    'Beispiel4',
-  ];
-
-  void addListitem(String listitem) {
-    setState(() {
-      listobjects.add(listitem);
-    });
+  late ToDoList toDoList;
+  var cardContent = <Widget>[];
+  @override
+  void initState() {
+    super.initState();
+    toDoList = widget.toDoList;
+    print('test:$toDoList');
+    /* toDoLists = makeLists();
+    makeLists().then((data) => addCardData(data)); */
   }
 
   final colors = [
@@ -53,6 +48,39 @@ class _TodoListitemsState extends State<TodoListitems> {
     return color;
   }
 
+  /* addCardData(dynamic data) {
+    for (int i = 0; i <= data.length; i++) {
+      var content = SafeArea(
+          child: Scaffold(
+              body: Container(
+                  color: getColor(),
+                  child: Center(
+                      child: FutureBuilder<List<ToDoList>>(
+                          future: toDoLists,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return ListView.builder(
+                                  padding: EdgeInsets.only(
+                                      bottom: 6.0,
+                                      top: 60.0,
+                                      left: 30.0,
+                                      right: 30.0),
+                                  itemCount: snapshot.data![0].tasks.length,
+                                  itemBuilder: (context, i) {
+                                    print(snapshot.data);
+                                    return Listrows(
+                                        snapshot.data![0].tasks[i].name);
+                                  });
+                            } else if (snapshot.hasError) {
+                              return Text("${snapshot.error}");
+                            }
+
+                            return CircularProgressIndicator();
+                          })))));
+      cardContent.add(content);
+    }
+  } */
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -63,9 +91,9 @@ class _TodoListitemsState extends State<TodoListitems> {
                   child: ListView.builder(
                       padding: EdgeInsets.only(
                           bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
-                      itemCount: toDoLists[0].tasks.length,
+                      itemCount: toDoList.tasks.length,
                       itemBuilder: (context, i) {
-                        return Listrows(toDoLists[0].tasks[i].name);
+                        return Listrows(toDoList.tasks[i].name);
                       }),
                 ))));
   }

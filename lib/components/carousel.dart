@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_todo/components/listitems.dart';
 import './listitems.dart';
+import 'package:flutter_todo/hiveservice.dart';
 
 class ToDoCarousel extends StatefulWidget {
   const ToDoCarousel({Key? key}) : super(key: key);
@@ -14,9 +15,14 @@ class _ToDoCarousel extends State<ToDoCarousel> {
   var cards = <Widget>[];
   var slider;
 
+  getHiveLists() async {
+    return await HiveService().getLists('School');
+  }
+
   _ToDoCarousel() {
+    var toDoLists = getHiveLists();
     //Creating the cards:
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < toDoLists.length; i++) {
       var newCard = Container(
           child: Card(
         clipBehavior: Clip.antiAlias,
@@ -24,7 +30,7 @@ class _ToDoCarousel extends State<ToDoCarousel> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Container(
-          child: TodoListitems(),
+          child: TodoListitems(toDoList: toDoLists[i]),
         ),
       ));
       cards.add(newCard);
