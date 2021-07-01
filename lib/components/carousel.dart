@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_todo/components/listitems.dart';
@@ -21,6 +23,19 @@ class _ToDoCarousel extends State<ToDoCarousel> {
   var slider;
   var toDoList;
 
+  final colors = [
+    Color.fromRGBO(255, 107, 178, 1),
+    Color.fromRGBO(171, 215, 99, 1),
+    Color.fromRGBO(118, 208, 227, 1),
+    Color.fromRGBO(159, 107, 255, 1)
+  ];
+
+  getColor() {
+    var _random = new Random();
+    var color = colors[_random.nextInt(colors.length)];
+    return color;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,9 +53,10 @@ class _ToDoCarousel extends State<ToDoCarousel> {
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15))),
-                          child: Container(
-                            child: TodoListitems(toDoList: item),
-                          ),
+                          child: Stack(children: [
+                            Text(item.name),
+                            Container(child: TodoListitems(toDoList: item)),
+                          ]),
                         ),
                       );
                     });
