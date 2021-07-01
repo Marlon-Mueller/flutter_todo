@@ -21,9 +21,9 @@ void main() async {
   await Hive.openBox<ToDoList>('Freetime');
   await Hive.openBox<ToDoList>('Household'); */
   var todo = ToDoList(name: 'Physik', tasks: [
-    Task(name: 'Buch Aufgaben 1-3', checked: false),
-    Task(name: 'Arbeitsblatt nummer 3', checked: false),
-    Task(name: 'dritte Aufgabe', checked: false)
+    Task(name: 'Buch', checked: false),
+    Task(name: 'Arbeit', checked: false),
+    Task(name: 'Aufgabe', checked: false)
   ]);
   await HiveService().saveList('School', todo);
 

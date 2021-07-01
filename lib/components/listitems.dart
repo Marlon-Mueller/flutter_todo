@@ -2,7 +2,9 @@ import 'dart:ui';
 import "dart:math";
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_todo/hiveservice.dart';
 import 'package:flutter_todo/models/listmodel.dart';
+import 'package:flutter_todo/models/taskmodel.dart';
 
 class TodoListitems extends StatefulWidget {
   final ToDoList toDoList;
@@ -20,7 +22,6 @@ class _TodoListitemsState extends State<TodoListitems> {
   void initState() {
     super.initState();
     toDoList = widget.toDoList;
-    print('test:$toDoList');
     /* toDoLists = makeLists();
     makeLists().then((data) => addCardData(data)); */
   }
@@ -38,7 +39,46 @@ class _TodoListitemsState extends State<TodoListitems> {
     return color;
   }
 
-  void pushEntry() {}
+  void addItem(String item) {
+    print('added item');
+    var newItem = Task(name: item, checked: false);
+    setState(() async {
+      toDoList.tasks.add(newItem);
+      await HiveService().saveList("School", toDoList);
+      setState(() {}); //Reloading page
+    });
+    Navigator.of(context).pop();
+  }
+
+  void checkItem(bool value, int key) {
+    print('checked item');
+    setState(() async {
+      toDoList.tasks[key].checked = true;
+      await HiveService().saveList("School", toDoList);
+      setState(() {});
+    });
+  }
+
+  void deleteItem(int key) {
+    print('delete item');
+    setState(() async {
+      toDoList.tasks.removeAt(key);
+      await HiveService().saveList("School", toDoList);
+      setState(() {});
+    });
+  }
+
+  void pushEntry() {
+    showDialog<AlertDialog>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: TextField(
+              onSubmitted: addItem,
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +96,12 @@ class _TodoListitemsState extends State<TodoListitems> {
                           itemBuilder: (context, i) {
                             return Container(
                                 child: Stack(children: [
-                              Inputfield(),
-                              Listrows(toDoList.tasks[i].name),
+                              //Inputfield(),
+                              Listrows(
+                                toDoList.tasks[i].name,
+                                () => deleteItem(i),
+                                (bool value) => checkItem(value, i),
+                              )
                             ]));
                           }),
                     ),
@@ -133,7 +177,9 @@ class Glassbox extends StatelessWidget {
 
 class Listrows extends StatelessWidget {
   final String title;
-  const Listrows(this.title);
+  final Function remove;
+  final Function checkItem;
+  const Listrows(this.title, this.remove, this.checkItem);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -161,8 +207,9 @@ class Listrows extends StatelessWidget {
                                 Colors.white.withOpacity(0.5),
                           ),
                           child: Checkbox(
-                            value: true,
-                            onChanged: (bool? value) {},
+                            value: false,
+                            onChanged: (bool value) => checkItem(value),
+                            activeColor: Color.fromRGBO(23, 152, 185, 100),
                           )),
                       title: Text(
                         title,
@@ -171,10 +218,10 @@ class Listrows extends StatelessWidget {
                           fontSize: 20,
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.delete_outline,
-                        size: 25,
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete_outline, size: 25),
                         color: Colors.white.withOpacity(0.5),
+                        onPressed: () => remove(),
                       ),
                     ),
                   ]),
@@ -186,6 +233,7 @@ class Listrows extends StatelessWidget {
   }
 }
 
+/*
 class Inputfield extends StatefulWidget {
   @override
   _InputfieldState createState() => _InputfieldState();
@@ -210,4 +258,4 @@ class _InputfieldState extends State<Inputfield> {
       ],
     );
   }
-}
+}*/
