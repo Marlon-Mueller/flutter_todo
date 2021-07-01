@@ -2,23 +2,27 @@ import 'dart:ui';
 import "dart:math";
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_todo/models/listmodel.dart';
 
 class TodoListitems extends StatefulWidget {
+  final ToDoList toDoList;
+
+  const TodoListitems({Key? key, required this.toDoList}) : super(key: key);
+
   @override
   _TodoListitemsState createState() => _TodoListitemsState();
 }
 
 class _TodoListitemsState extends State<TodoListitems> {
-  List<String> listobjects = [
-    'Beispiel1',
-    'Beispiel2',
-    'Beispiel3',
-    'Beispiel4',
-  ];
-  void addListitem(String listitem) {
-    setState(() {
-      listobjects.add(listitem);
-    });
+  late ToDoList toDoList;
+  var cardContent = <Widget>[];
+  @override
+  void initState() {
+    super.initState();
+    toDoList = widget.toDoList;
+    print('test:$toDoList');
+    /* toDoLists = makeLists();
+    makeLists().then((data) => addCardData(data)); */
   }
 
   final colors = [
@@ -46,9 +50,9 @@ class _TodoListitemsState extends State<TodoListitems> {
                   child: ListView.builder(
                       padding: EdgeInsets.only(
                           bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
-                      itemCount: listobjects.length,
+                      itemCount: toDoList.tasks.length,
                       itemBuilder: (context, i) {
-                        return Listrows(listobjects[i]);
+                        return Listrows(toDoList.tasks[i].name);
                       }),
                 ))));
   }
