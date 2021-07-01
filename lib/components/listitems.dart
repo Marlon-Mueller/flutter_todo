@@ -38,7 +38,7 @@ class _TodoListitemsState extends State<TodoListitems> {
     return color;
   }
 
-  void newEntry() {}
+  void pushEntry() {}
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +46,30 @@ class _TodoListitemsState extends State<TodoListitems> {
         child: Scaffold(
             body: Container(
                 color: getColor(),
-                child: Center(
-                  child: ListView.builder(
-                      padding: EdgeInsets.only(
-                          bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
-                      itemCount: toDoList.tasks.length,
-                      itemBuilder: (context, i) {
-                        return Listrows(toDoList.tasks[i].name);
-                      }),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: ListView.builder(
+                          padding: EdgeInsets.only(
+                              bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
+                          itemCount: toDoList.tasks.length,
+                          itemBuilder: (context, i) {
+                            return Container(
+                                child: Stack(children: [
+                              Inputfield(),
+                              Listrows(toDoList.tasks[i].name),
+                            ]));
+                          }),
+                    ),
+                    Container(
+                      child: FloatingActionButton(
+                        backgroundColor: Colors.white.withOpacity(0.6),
+                        onPressed: pushEntry,
+                        child: Icon(Icons.add,
+                            size: 25, color: Colors.white.withOpacity(0.5)),
+                      ),
+                    ),
+                  ],
                 ))));
   }
 }
@@ -186,7 +202,9 @@ class _InputfieldState extends State<Inputfield> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        TextField(),
+        TextField(
+          onSubmitted: updatefield,
+        ),
         Text(inputtext),
       ],
     );

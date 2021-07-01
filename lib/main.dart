@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/models/listmodel.dart';
 import 'package:flutter_todo/models/taskmodel.dart';
+import 'components/listitems.dart';
 import 'pages/home.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,7 +25,7 @@ void main() async {
     Task(name: 'Arbeitsblatt nummer 3', checked: false),
     Task(name: 'dritte Aufgabe', checked: false)
   ]);
-  /* await HiveService().saveList('School', todo); */
+  await HiveService().saveList('School', todo);
 
   runApp(MyApp());
 }

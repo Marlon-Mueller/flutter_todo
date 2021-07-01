@@ -24,7 +24,6 @@ class _ToDoCarousel extends State<ToDoCarousel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      /* child: slider, */
       child: FutureBuilder<List<ToDoList>>(
           future: getHiveData(),
           builder: (context, snapshot) {
