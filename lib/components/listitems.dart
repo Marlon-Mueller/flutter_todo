@@ -1,6 +1,7 @@
 import 'dart:ui';
 import "dart:math";
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class TodoListitems extends StatefulWidget {
   @override
@@ -32,6 +33,8 @@ class _TodoListitemsState extends State<TodoListitems> {
     var color = colors[_random.nextInt(colors.length)];
     return color;
   }
+
+  void newEntry() {}
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +140,7 @@ class Listrows extends StatelessWidget {
                                 Colors.white.withOpacity(0.5),
                           ),
                           child: Checkbox(
-                            value: false,
+                            value: true,
                             onChanged: (bool? value) {},
                           )),
                       title: Text(
