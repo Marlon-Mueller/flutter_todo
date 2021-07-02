@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/models/listmodel.dart';
 import 'package:flutter_todo/models/taskmodel.dart';
+import 'pages/ToDo.dart';
 import 'components/listitems.dart';
 import 'pages/home.dart';
 import 'package:hive/hive.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
+      routes: {
+        ToDoScreenState.routeName: (context) => ToDoScreen(),
+      },
     );
   }
 }
