@@ -2,10 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import '../components/drawer.dart';
+import 'package:flutter_todo/components/appBar.dart';
+import 'package:flutter_todo/components/drawer.dart';
+import 'package:hive/hive.dart';
+import '../components/carousel.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
-
+  //static const routeName = '/Category';
   @override
   _HomeState createState() => _HomeState();
 }
@@ -38,29 +42,32 @@ class ExtractArgumentsScreen extends StatelessWidget {
   static const routeName = '/extractArguments';
 
   @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Extract the arguments from the current ModalRoute
     // settings and cast them as ScreenArguments.
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(args.category),
-      ),
-      body: Center(
-        child: Text(args.category),
+    
+    return Container(
+      child: Scaffold(
+        body: GestureDetector(
+          onTap: () {},
+          child: Container(
+            child: Stack(
+              children: [
+                ToDoDrawer(),
+                ToDoCarousel(),
+                Bar(),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 }
-
-/*          onPanEnd: (details) {
-                  if (details.velocity.pixelsPerSecond.dy > holdmenu) {
-                    this.setState(() {
-                      showfulldrawer = false;
-                    });
-                  } else if (details.velocity.pixelsPerSecond.dy < -holdmenu) {
-                    this.setState(() {
-                      showfulldrawer = true;
-                    });
-                  }*/

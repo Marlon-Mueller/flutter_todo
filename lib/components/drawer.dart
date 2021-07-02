@@ -1,8 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
 import '../pages/home.dart';
 import '../pages/calender.dart';
+import 'package:flutter_todo/pages/home.dart';
+
 
 class ToDoDrawer extends StatelessWidget {
   @override
@@ -134,7 +135,6 @@ class ToDoDrawer extends StatelessWidget {
                             color: Color.fromRGBO(255, 255, 255, 0.5),
                           ),
                           height: 40,
-
                           //padding: const EdgeInsets.all(10.0),
                           child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -203,51 +203,8 @@ class _DropdownInDrawerState extends State<DropdownInDrawer> {
     );
   }
 }
+class SelectedCategory {
+  final String category;
 
-//simple old drawer in comment not use
-
-/*
-return Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
-          backgroundColor: Color.fromRGBO(85, 85, 85, 1),
-        ),
-        drawer: Drawer(
-          child: Container(
-            color: Color.fromRGBO(85, 85, 85, 1),
-            child: ListView(
-              children: <Widget>[
-                new UserAccountsDrawerHeader(
-                  accountName: Text("Marlon"),
-                  accountEmail: Text("kewwmkxk@gmail.com"),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundColor: Colors.red,
-                  ),
-                ),
-                ListTile(
-                    title: Text(
-                      "Die Checkliste",
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.5),
-                        fontSize: 20,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                new Home()), //öffnen des Kalenders
-                      );
-                    }),
-                Divider(
-                  color: Colors.black,
-                  height: 4.0,
-                )
-              ],
-            ),
-          ),
-        ),
-        body: Text("Hallo"));
-  }*/
+  SelectedCategory(this.category);
+}
