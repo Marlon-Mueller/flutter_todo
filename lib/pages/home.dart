@@ -21,26 +21,23 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Scaffold(
-        body: GestureDetector(
-          onTap: () {},
-          child: Container(
-            child: Stack(
-              children: [
-                ToDoDrawer(),
-                ToDoCarousel(),
-                Bar(),
-              ],
-            ),
+      child: Container(
+        child: Scaffold(
+          drawer: ToDoDrawer(),
+          body: Stack(
+            clipBehavior: Clip.antiAlias,
+            children: <Widget>[
+              ToDoDrawer(),
+              Bar(),
+            ],
           ),
         ),
       ),
     );
   }
 }
-    
-    
-    /*return Container(
+
+/*return Container(
       child: Scaffold(
         drawer: ToDoDrawer(),
         body: Row(children: [
