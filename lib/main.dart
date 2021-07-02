@@ -3,10 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/models/listmodel.dart';
 import 'package:flutter_todo/models/taskmodel.dart';
-import 'pages/ToDo.dart';
 import 'components/listitems.dart';
 import 'pages/home.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import './hiveservice.dart';
@@ -18,12 +16,21 @@ void main() async {
   Hive.registerAdapter(ToDoListAdapter());
   Hive.registerAdapter(TaskAdapter());
 
-  /* await Hive.openBox<ToDoList>('Schule');
-  await Hive.openBox<ToDoList>('Arbeit');
-  await Hive.openBox<ToDoList>('Freizeit');
-  await Hive.openBox<ToDoList>('Haushalt'); */
+  /* await Hive.openBox<ToDoList>('School');
+  await Hive.openBox<ToDoList>('Work');
+  await Hive.openBox<ToDoList>('Freetime');
+  await Hive.openBox<ToDoList>('Household'); */
+  var todo = ToDoList(name: 'Mathe', tasks: []);
 
-  initializeDateFormatting().then((_) => runApp(MyApp()));
+  var todo2 = ToDoList(name: 'Physik', tasks: []);
+
+  var todo3 = ToDoList(name: 'Deutsch', tasks: []);
+
+  await HiveService().saveList('Schule', todo);
+  await HiveService().saveList('Schule', todo2);
+  await HiveService().saveList('Schule', todo3);
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,9 +40,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
-      routes: {
-        ToDoScreen.routeName: (context) => ToDoScreen(),
-      },
     );
   }
 }
