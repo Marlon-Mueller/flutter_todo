@@ -8,8 +8,11 @@ import 'package:flutter_todo/models/taskmodel.dart';
 
 class TodoListitems extends StatefulWidget {
   final ToDoList toDoList;
+  final String category;
 
-  const TodoListitems({Key? key, required this.toDoList}) : super(key: key);
+  const TodoListitems(
+      {Key? key, required this.toDoList, required this.category})
+      : super(key: key);
 
   @override
   _TodoListitemsState createState() => _TodoListitemsState();
@@ -17,11 +20,13 @@ class TodoListitems extends StatefulWidget {
 
 class _TodoListitemsState extends State<TodoListitems> {
   late ToDoList toDoList;
+  late String category;
   var cardContent = <Widget>[];
   @override
   void initState() {
     super.initState();
     toDoList = widget.toDoList;
+    category = widget.category;
     /* toDoLists = makeLists();
     makeLists().then((data) => addCardData(data)); */
   }
@@ -44,7 +49,7 @@ class _TodoListitemsState extends State<TodoListitems> {
     var newItem = Task(name: item, checked: false);
     setState(() async {
       toDoList.tasks.add(newItem);
-      await HiveService().saveList("School", toDoList);
+      await HiveService().saveList(category, toDoList);
       setState(() {}); //Reloading page
     });
     Navigator.of(context).pop();
@@ -58,7 +63,7 @@ class _TodoListitemsState extends State<TodoListitems> {
       } else {
         toDoList.tasks[key].checked = true;
       }
-      await HiveService().saveList("School", toDoList);
+      await HiveService().saveList(category, toDoList);
       setState(() {});
     });
   }
@@ -67,19 +72,39 @@ class _TodoListitemsState extends State<TodoListitems> {
     print('delete item');
     setState(() async {
       toDoList.tasks.removeAt(key);
-      await HiveService().saveList("School", toDoList);
+      await HiveService().saveList(category, toDoList);
       setState(() {});
     });
   }
 
   void pushEntry() {
+    final ButtonStyle flatButtonStyle = TextButton.styleFrom(
+      /* minimumSize: Size(_width, _height), */
+      backgroundColor: Colors.white,
+      padding: EdgeInsets.all(0),
+    );
+
+    String name = '';
+
+    Widget okButton = TextButton(
+      style: flatButtonStyle,
+      child: Text("Hinzufügen"),
+      onPressed: () {
+        Navigator.pop(context);
+        addItem(name);
+      },
+    );
+
     showDialog<AlertDialog>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            title: Text('Neue Aufgabe'),
             content: TextField(
+              onChanged: (value) => name = value,
               onSubmitted: addItem,
             ),
+            actions: [okButton],
           );
         });
   }

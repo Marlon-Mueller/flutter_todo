@@ -23,11 +23,10 @@ class _HomeState extends State<Home> {
     return Container(
       child: Container(
         child: Scaffold(
-          drawer: ToDoDrawer(),
           body: Stack(
             clipBehavior: Clip.antiAlias,
             children: <Widget>[
-              ToDoDrawer(),
+              ToDoDrawer('Schule'),
               Bar(),
             ],
           ),

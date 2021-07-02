@@ -64,7 +64,6 @@ class _CalenderpageState extends State<Calenderpage> {
             margin: const EdgeInsets.only(top: 100.0, right: 0.0),
             child: MaterialButton(
               color: Color.fromRGBO(255, 255, 255, 0.5),
-              hoverColor: Colors.lightGreen,
               child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(

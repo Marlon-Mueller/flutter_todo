@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import '../components/carousel.dart';
 
 class ToDoScreen extends StatefulWidget {
+  static const routeName = '/Category';
   const ToDoScreen({Key? key}) : super(key: key);
 
   @override
@@ -12,19 +13,21 @@ class ToDoScreen extends StatefulWidget {
 }
 
 class ToDoScreenState extends State<ToDoScreen> {
-  static const routeName = '/Category';
   @override
   Widget build(BuildContext context) {
     SelectedCategory args =
         ModalRoute.of(context)!.settings.arguments as SelectedCategory;
     return Container(
+        child: Container(
       child: Scaffold(
-        drawer: ToDoDrawer(),
-        body: Row(children: [
-          ToDoCarousel(),
-          Bar(),
-        ]),
+        body: Stack(
+          clipBehavior: Clip.antiAlias,
+          children: <Widget>[
+            ToDoDrawer(args.category),
+            Bar(),
+          ],
+        ),
       ),
-    );
+    ));
   }
 }
