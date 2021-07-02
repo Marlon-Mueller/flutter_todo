@@ -1,7 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
-import '../pages/home.dart';
+import 'package:flutter_todo/pages/home.dart';
+//import '../pages/home.dart';
+//import '../pages/calender.dart';
 
 class ToDoDrawer extends StatelessWidget {
   @override
@@ -9,111 +10,143 @@ class ToDoDrawer extends StatelessWidget {
     double height = MediaQuery.of(context).size.height / 3;
     double width = MediaQuery.of(context).size.width;
 
-    return ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        child: Container(
-            color: Color.fromRGBO(82, 82, 82, 1),
-            width: width,
-            height: height + 50,
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-              child: Column(
-                children: <Widget>[
-                  Icon(
-                    Icons.arrow_drop_up_sharp,
-                    color: Colors.black,
-                    size: 15,
-                  ),
-                  Text(
-                    "Checklistenmenü",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: MaterialButton(
-                      color: Color.fromRGBO(255, 255, 255, 0.5),
-                      child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text("Kalender "),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Colors.black,
-                                size: 15,
-                              )
-                            ],
-                          )),
-                      onPressed: () {},
-                    ),
-                  ),
-                  SizedBox(
-                    height: 2.5,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: MaterialButton(
-                        color: Color.fromRGBO(255, 255, 255, 0.5),
-                        child: Padding(
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Home"),
+          backgroundColor: Color.fromRGBO(85, 85, 85, 1),
+        ),
+        drawer: Drawer(
+            child: Container(
+                color: Color.fromRGBO(82, 82, 82, 1),
+                width: width,
+                height: height + 50,
+                padding: const EdgeInsets.only(top: 45.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 2.0, horizontal: 10.0),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        "Checklistenmenü",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromRGBO(255, 255, 255, 1),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 90,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: MaterialButton(
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                            hoverColor: Colors.lightGreen,
+                            child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Text("Kalender "),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Icon(
+                                      Icons.calendar_today,
+                                      color: Colors.black,
+                                      size: 15,
+                                    )
+                                  ],
+                                )),
+                            onPressed:
+                                () {} /*
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        new Calenderpage()));
+                          },*/
+                            ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: MaterialButton(
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                            hoverColor: Colors.lightGreen,
+                            child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    Text("Checkliste "),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Icon(
+                                      Icons.check_sharp,
+                                      color: Colors.black,
+                                      size: 15,
+                                    )
+                                  ],
+                                )),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        new Home()), //öffnen der Checkleiste
+                              );
+                            }),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 38,
+                        child: MaterialButton(
+                          onPressed: () {},
+                          color: Color.fromRGBO(255, 255, 255, 0.5),
+                          hoverColor: Colors.lightGreen,
+                          child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                Text("Checkliste "),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.black,
-                                  size: 15,
-                                )
+                                DropdownInDrawer(),
                               ],
-                            )),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    new Home()), //öffnen der Checkleiste
-                          );
-                        }),
+                            ),
+                          ),
+                        ),
+                        /*width: double.infinity,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                          ),
+                          height: 40,
+                          //padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                DropdownInDrawer(),
+                              ]),
+                        ),*/
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Container(
-                      height: 40,
-                      color: Color.fromRGBO(255, 255, 255, 0.5),
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            DropdownInDrawer(),
-                          ]),
-                    ),
-                  ),
-                ],
-              ),
-            )));
+                ))));
   }
 }
 
@@ -133,9 +166,9 @@ class _DropdownInDrawerState extends State<DropdownInDrawer> {
     return DropdownButton<String>(
       dropdownColor: Color.fromRGBO(255, 255, 255, 1),
       value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward, color: Colors.black),
+      icon: const Icon(Icons.format_list_bulleted_sharp, color: Colors.black),
       iconSize: 15,
-      elevation: 16,
+      //elevation: 16,
       style: const TextStyle(
         color: Colors.black,
       ),
@@ -145,14 +178,14 @@ class _DropdownInDrawerState extends State<DropdownInDrawer> {
       onChanged: (String? newValue) {
         setState(() {
           dropdownValue = newValue!;
-          Navigator.of(context).pop();
+          /*Navigator.of(context).pop();
           Navigator.pushNamed(
             context,
-            Home.routeName,
-            arguments: SelectedCategory(
+            ExtractArgumentsScreen.routeName,
+            arguments: ScreenArguments(
               newValue,
             ),
-          );
+          );*/
         });
       },
       items: <String>['Schule', 'Arbeit', 'Freizeit', 'Haushalt']
