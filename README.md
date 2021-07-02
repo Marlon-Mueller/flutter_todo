@@ -1,7 +1,7 @@
 
 # flutter_todo
 
-A new Flutter To Do App.
+A new Flutter To Do App. Both the app and the calendar are in German, in order to change the calendar language, the locale variable must be changed accordingly. All other linguistic changes can be made without further ado
 
 ## Project plan
 
