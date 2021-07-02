@@ -1,23 +1,29 @@
 import 'dart:ui';
 import "dart:math";
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_todo/hiveservice.dart';
+import 'package:flutter_todo/models/listmodel.dart';
+import 'package:flutter_todo/models/taskmodel.dart';
 
 class TodoListitems extends StatefulWidget {
+  final ToDoList toDoList;
+
+  const TodoListitems({Key? key, required this.toDoList}) : super(key: key);
+
   @override
   _TodoListitemsState createState() => _TodoListitemsState();
 }
 
 class _TodoListitemsState extends State<TodoListitems> {
-  List<String> listobjects = [
-    'Beispiel1',
-    'Beispiel2',
-    'Beispiel3',
-    'Beispiel4',
-  ];
-  void addListitem(String listitem) {
-    setState(() {
-      listobjects.add(listitem);
-    });
+  late ToDoList toDoList;
+  var cardContent = <Widget>[];
+  @override
+  void initState() {
+    super.initState();
+    toDoList = widget.toDoList;
+    /* toDoLists = makeLists();
+    makeLists().then((data) => addCardData(data)); */
   }
 
   final colors = [
@@ -33,21 +39,106 @@ class _TodoListitemsState extends State<TodoListitems> {
     return color;
   }
 
+  void addItem(String item) {
+    print('added item');
+    var newItem = Task(name: item, checked: false);
+    setState(() async {
+      toDoList.tasks.add(newItem);
+      await HiveService().saveList("School", toDoList);
+      setState(() {}); //Reloading page
+    });
+    Navigator.of(context).pop();
+  }
+
+  void checkItem(bool value, int key) {
+    print('checked item');
+    setState(() async {
+      if (toDoList.tasks[key].checked == true) {
+        toDoList.tasks[key].checked = false;
+      } else {
+        toDoList.tasks[key].checked = true;
+      }
+      await HiveService().saveList("School", toDoList);
+      setState(() {});
+    });
+  }
+
+  void deleteItem(int key) {
+    print('delete item');
+    setState(() async {
+      toDoList.tasks.removeAt(key);
+      await HiveService().saveList("School", toDoList);
+      setState(() {});
+    });
+  }
+
+  void pushEntry() {
+    showDialog<AlertDialog>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: TextField(
+              onSubmitted: addItem,
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
             body: Container(
                 color: getColor(),
-                child: Center(
-                  child: ListView.builder(
-                      padding: EdgeInsets.only(
-                          bottom: 6.0, top: 60.0, left: 30.0, right: 30.0),
-                      itemCount: listobjects.length,
-                      itemBuilder: (context, i) {
-                        return Listrows(listobjects[i]);
-                      }),
-                ))));
+                child: Stack(children: [
+                  Center(
+                    child: ListView.builder(
+                        padding: EdgeInsets.only(
+                            bottom: 6.0, top: 75.0, left: 30.0, right: 30.0),
+                        itemCount: toDoList.tasks.length,
+                        itemBuilder: (context, i) {
+                          return Container(
+                              child: Stack(children: [
+                            /* Inputfield(), */
+                            Listrows(
+                              toDoList.tasks[i],
+                              () => deleteItem(i),
+                              (value) => checkItem(value, i),
+                            ),
+                          ]));
+                        }),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 400.0, left: 200.0),
+                    child: FloatingActionButton(
+                      backgroundColor: Colors.white.withOpacity(0.6),
+                      onPressed: pushEntry,
+                      child: Icon(Icons.add,
+                          size: 25, color: Colors.white.withOpacity(0.5)),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 420),
+                      child: Glassbox(
+                        width: 100,
+                        height: 40,
+                        child: Center(
+                          child: Text(
+                            toDoList.name,
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 69,
+                  )
+                ]))));
   }
 }
 
@@ -86,7 +177,7 @@ class Glassbox extends StatelessWidget {
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.black.withOpacity(0.15), blurRadius: 25)
+                          color: Colors.black.withOpacity(0.10), blurRadius: 25)
                     ],
                     gradient: LinearGradient(
                         begin: Alignment.topLeft,
@@ -108,8 +199,10 @@ class Glassbox extends StatelessWidget {
 }
 
 class Listrows extends StatelessWidget {
-  final String title;
-  const Listrows(this.title);
+  final Task task;
+  final Function remove;
+  final Function checkItem;
+  const Listrows(this.task, this.remove, this.checkItem);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -137,20 +230,22 @@ class Listrows extends StatelessWidget {
                                 Colors.white.withOpacity(0.5),
                           ),
                           child: Checkbox(
-                            value: false,
-                            onChanged: (bool? value) {},
+                            activeColor: Colors.white.withOpacity(0.0025),
+                            checkColor: Colors.white.withOpacity(0.7),
+                            value: task.checked,
+                            onChanged: (value) => checkItem(value),
                           )),
                       title: Text(
-                        title,
+                        task.name,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.white.withOpacity(0.7),
                           fontSize: 20,
                         ),
                       ),
-                      trailing: Icon(
-                        Icons.delete_outline,
-                        size: 25,
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete_outline, size: 25),
                         color: Colors.white.withOpacity(0.5),
+                        onPressed: () => remove(),
                       ),
                     ),
                   ]),
@@ -162,6 +257,7 @@ class Listrows extends StatelessWidget {
   }
 }
 
+/*
 class Inputfield extends StatefulWidget {
   @override
   _InputfieldState createState() => _InputfieldState();
@@ -179,9 +275,11 @@ class _InputfieldState extends State<Inputfield> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        TextField(),
+        TextField(
+          onSubmitted: updatefield,
+        ),
         Text(inputtext),
       ],
     );
   }
-}
+}*/
