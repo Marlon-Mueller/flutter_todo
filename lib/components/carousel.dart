@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import "dart:math";
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_todo/components/listitems.dart';
 import 'package:flutter_todo/models/listmodel.dart';
@@ -22,7 +23,6 @@ class _ToDoCarousel extends State<ToDoCarousel> {
   var cards = <Widget>[];
   var slider;
   var toDoList;
-
   final colors = [
     Color.fromRGBO(255, 107, 178, 1),
     Color.fromRGBO(171, 215, 99, 1),
@@ -35,7 +35,6 @@ class _ToDoCarousel extends State<ToDoCarousel> {
     var color = colors[_random.nextInt(colors.length)];
     return color;
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(

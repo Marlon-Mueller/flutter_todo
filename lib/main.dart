@@ -6,6 +6,9 @@ import 'package:flutter_todo/models/taskmodel.dart';
 import 'pages/ToDo.dart';
 import 'components/listitems.dart';
 import 'pages/home.dart';
+
+import 'package:intl/date_symbol_data_local.dart';
+
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import './hiveservice.dart';
@@ -32,7 +35,7 @@ void main() async {
   await HiveService().saveList('School', todo2);
   await HiveService().saveList('School', todo3);
 
-  runApp(MyApp());
+  initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -43,6 +46,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Home(),
       routes: {
+        ExtractArgumentsScreen.routeName: (context) => ExtractArgumentsScreen(),
         ToDoScreenState.routeName: (context) => ToDoScreen(),
       },
     );

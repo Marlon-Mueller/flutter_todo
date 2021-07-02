@@ -1,8 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../pages/home.dart';
+import '../pages/calender.dart';
 import 'package:flutter_todo/pages/home.dart';
-//import '../pages/home.dart';
-//import '../pages/calender.dart';
+
 
 class ToDoDrawer extends StatelessWidget {
   @override
@@ -40,36 +41,35 @@ class ToDoDrawer extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: MaterialButton(
-                            color: Color.fromRGBO(255, 255, 255, 0.5),
-                            hoverColor: Colors.lightGreen,
-                            child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    Text("Kalender "),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Icon(
-                                      Icons.calendar_today,
-                                      color: Colors.black,
-                                      size: 15,
-                                    )
-                                  ],
-                                )),
-                            onPressed:
-                                () {} /*
+                          color: Color.fromRGBO(255, 255, 255, 0.5),
+                          hoverColor: Colors.lightGreen,
+                          child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Text("Kalender "),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Icon(
+                                    Icons.calendar_today,
+                                    color: Colors.black,
+                                    size: 15,
+                                  )
+                                ],
+                              )),
+                          onPressed: () {
                             Navigator.of(context).pop();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (BuildContext context) =>
                                         new Calenderpage()));
-                          },*/
-                            ),
+                          },
+                        ),
                       ),
                       SizedBox(
                         height: 20,
@@ -203,7 +203,6 @@ class _DropdownInDrawerState extends State<DropdownInDrawer> {
     );
   }
 }
-
 class SelectedCategory {
   final String category;
 

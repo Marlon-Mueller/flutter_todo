@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import '../components/drawer.dart';
 import 'package:flutter_todo/components/appBar.dart';
 import 'package:flutter_todo/components/drawer.dart';
 import 'package:hive/hive.dart';
@@ -12,6 +15,32 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool showfulldrawer = true;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Scaffold(
+      body: GestureDetector(
+          onTap: () {
+            showfulldrawer = true;
+          },
+          child: Container(
+              child: Stack(children: [
+            ToDoDrawer(),
+          ]))),
+    ));
+  }
+}
+
+class ScreenArguments {
+  final String category;
+
+  ScreenArguments(this.category);
+}
+
+class ExtractArgumentsScreen extends StatelessWidget {
+  static const routeName = '/extractArguments';
+
   @override
   void dispose() {
     Hive.close();
@@ -20,6 +49,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // Extract the arguments from the current ModalRoute
+    // settings and cast them as ScreenArguments.
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+    
     return Container(
       child: Scaffold(
         body: GestureDetector(
@@ -38,20 +71,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-    
-    
-    /*return Container(
-      child: Scaffold(
-        drawer: ToDoDrawer(),
-        body: Row(children: [
-          ToDoCarousel(),
-          Bar(),
-        ]),
-      ),
-    );
-
-    return Container(
-      child: ToDoCarousel(),
-    );
-  }
-}*/
