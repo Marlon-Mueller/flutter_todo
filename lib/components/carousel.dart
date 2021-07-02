@@ -56,7 +56,7 @@ class _ToDoCarousel extends State<ToDoCarousel> {
     setState(() {});
   }
 
-  void pushEntry() {
+  void pushList() {
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       /* minimumSize: Size(_width, _height), */
       backgroundColor: Colors.white,
@@ -83,9 +83,7 @@ class _ToDoCarousel extends State<ToDoCarousel> {
             title: Text('Liste Hinzufügen'),
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              //posisi
               mainAxisSize: MainAxisSize.min,
-              // untuk mengatur agar widget column mengikuti widget
               children: <Widget>[
                 Text('Titel'),
                 TextField(
@@ -165,7 +163,7 @@ class _ToDoCarousel extends State<ToDoCarousel> {
                                 ),
                               ],
                             )),
-                        onPressed: () => pushEntry(),
+                        onPressed: pushList,
                       ),
                     ))
               ]);
