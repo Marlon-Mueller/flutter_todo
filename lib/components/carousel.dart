@@ -110,18 +110,6 @@ class _ToDoCarousel extends State<ToDoCarousel> {
             actions: [okButton],
           );
         });
-
-    /* showDialog<AlertDialog>(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Neue Aufgabe'),
-            content: Row(
-              children: [TextField()],
-            ),
-            actions: [okButton],
-          );
-        }); */
   }
 
   @override
