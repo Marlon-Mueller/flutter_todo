@@ -81,15 +81,25 @@ class _ToDoCarousel extends State<ToDoCarousel> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Liste Hinzufügen'),
-            content: Row(
-              children: [
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              //posisi
+              mainAxisSize: MainAxisSize.min,
+              // untuk mengatur agar widget column mengikuti widget
+              children: <Widget>[
                 Text('Titel'),
                 TextField(
                   onChanged: (value) => title = value,
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 Text('Aufgabe 1'),
                 TextField(
                   onChanged: (value) => a1 = value,
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 Text('Aufgabe 2'),
                 TextField(
@@ -100,6 +110,18 @@ class _ToDoCarousel extends State<ToDoCarousel> {
             actions: [okButton],
           );
         });
+
+    /* showDialog<AlertDialog>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Neue Aufgabe'),
+            content: Row(
+              children: [TextField()],
+            ),
+            actions: [okButton],
+          );
+        }); */
   }
 
   @override
@@ -134,25 +156,30 @@ class _ToDoCarousel extends State<ToDoCarousel> {
                         height: 500,
                         enlargeCenterPage: true,
                         enableInfiniteScroll: false)),
-                MaterialButton(
-                  color: Color.fromRGBO(255, 255, 255, 0.5),
-                  child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text(
-                            "Liste hinzufügen",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      )),
-                  onPressed: () => pushEntry(),
-                ),
+                Container(
+                    margin: const EdgeInsets.only(top: 450.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: MaterialButton(
+                        color: Color.fromRGBO(255, 255, 255, 0.5),
+                        child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Text(
+                                  "Liste hinzufügen",
+                                  /* style: TextStyle(color: Colors.white), */
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            )),
+                        onPressed: () => pushEntry(),
+                      ),
+                    ))
               ]);
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');

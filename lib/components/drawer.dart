@@ -152,7 +152,7 @@ class ToDoDrawer extends StatelessWidget {
           child: ToDoCarousel(
             category: category,
           ),
-          margin: const EdgeInsets.only(top: 110.0),
+          margin: const EdgeInsets.only(top: 70.0),
         ));
   }
 }

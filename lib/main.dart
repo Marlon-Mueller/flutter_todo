@@ -25,22 +25,6 @@ void main() async {
   await Hive.openBox<ToDoList>('Freizeit');
   await Hive.openBox<ToDoList>('Haushalt'); */
 
-  var todoS = ToDoList(name: 'Mathe', tasks: []);
-  var todoS2 = ToDoList(name: 'Physik', tasks: []);
-  var todoS3 = ToDoList(name: 'Deutsch', tasks: []);
-
-  var todo = ToDoList(name: '', tasks: []);
-  var todo2 = ToDoList(name: 'Physik', tasks: []);
-  var todo3 = ToDoList(name: 'Deutsch', tasks: []);
-
-  await HiveService().saveList('Schule', todoS);
-  await HiveService().saveList('Schule', todoS2);
-  await HiveService().saveList('Schule', todoS3);
-
-  await HiveService().saveList('Schule', todoS);
-  await HiveService().saveList('Schule', todoS2);
-  await HiveService().saveList('Schule', todoS3);
-
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
