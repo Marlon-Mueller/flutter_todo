@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo/components/appBar.dart';
+import 'package:flutter_todo/components/drawer.dart';
 import 'package:hive/hive.dart';
 import '../components/carousel.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
-
+  //static const routeName = '/Category';
   @override
   _HomeState createState() => _HomeState();
 }
@@ -19,7 +21,37 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: ToDoCarousel(),
+      child: Scaffold(
+        body: GestureDetector(
+          onTap: () {},
+          child: Container(
+            child: Stack(
+              children: [
+                ToDoDrawer(),
+                ToDoCarousel(),
+                Bar(),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
+    
+    
+    /*return Container(
+      child: Scaffold(
+        drawer: ToDoDrawer(),
+        body: Row(children: [
+          ToDoCarousel(),
+          Bar(),
+        ]),
+      ),
+    );
+
+    return Container(
+      child: ToDoCarousel(),
+    );
+  }
+}*/
