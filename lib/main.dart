@@ -6,9 +6,7 @@ import 'package:flutter_todo/models/taskmodel.dart';
 import 'pages/ToDo.dart';
 import 'components/listitems.dart';
 import 'pages/home.dart';
-
 import 'package:intl/date_symbol_data_local.dart';
-
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import './hiveservice.dart';
