@@ -143,12 +143,11 @@ class _ToDoCarousel extends State<ToDoCarousel> {
                         enlargeCenterPage: true,
                         enableInfiniteScroll: false)),
                 Container(
-                    margin: const EdgeInsets.only(top: 450.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: MaterialButton(
+                  margin: const EdgeInsets.only(top: 450.0),
+                  child: Align(alignment: Alignment.center
+                      /*child: MaterialButton(
                         color: Color.fromRGBO(255, 255, 255, 0.5),
-                        child: Padding(
+                         child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -164,8 +163,11 @@ class _ToDoCarousel extends State<ToDoCarousel> {
                               ],
                             )),
                         onPressed: pushList,
+<<<<<<< HEAD
+                      ),*/
+
                       ),
-                    ))
+                )
               ]);
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
