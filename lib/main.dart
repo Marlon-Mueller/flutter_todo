@@ -3,8 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/models/listmodel.dart';
 import 'package:flutter_todo/models/taskmodel.dart';
+import 'pages/ToDo.dart';
 import 'components/listitems.dart';
 import 'pages/home.dart';
+
+import 'package:intl/date_symbol_data_local.dart';
+
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import './hiveservice.dart';
@@ -16,11 +20,11 @@ void main() async {
   Hive.registerAdapter(ToDoListAdapter());
   Hive.registerAdapter(TaskAdapter());
 
-  /* await Hive.openBox<ToDoList>('School');
-  await Hive.openBox<ToDoList>('Work');
-  await Hive.openBox<ToDoList>('Freetime');
-  await Hive.openBox<ToDoList>('Household'); */
-  var todo = ToDoList(name: 'Mathe', tasks: []);
+  /* await Hive.openBox<ToDoList>('Schule');
+  await Hive.openBox<ToDoList>('Arbeit');
+  await Hive.openBox<ToDoList>('Freizeit');
+  await Hive.openBox<ToDoList>('Haushalt'); */
+   var todo = ToDoList(name: 'Mathe', tasks: []);
   var todo2 = ToDoList(name: 'Physik', tasks: []);
   var todo3 = ToDoList(name: 'Deutsch', tasks: []);
   
@@ -28,8 +32,7 @@ void main() async {
   var todo21 = ToDoList(name: 'Arbeit', tasks: []);
   
   var todo02 = ToDoList(name: 'Sport', tasks: []);
-  var todo22 = ToDoList(name: 'Spaß', tasks: []);
-  var todo32 = ToDoList(name: 'Essen', tasks: []);
+
   
   var todo03 = ToDoList(name: 'Kochen', tasks: []);
   var todo23 = ToDoList(name: 'Waschen', tasks: []);
@@ -43,14 +46,12 @@ void main() async {
   await HiveService().saveList('Arbeit', todo21);
   
   await HiveService().saveList('Freizeit', todo02);
-  await HiveService().saveList('Freizeit', todo22);
-  await HiveService().saveList('Freizeit', todo32);
-  
   
   await HiveService().saveList('Haushalt', todo03);
   await HiveService().saveList('Haushalt', todo23);
   await HiveService().saveList('Haushalt', todo33);
-  runApp(MyApp());
+
+  initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -60,6 +61,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home(),
+      routes: {
+        ToDoScreen.routeName: (context) => ToDoScreen(),
+      },
     );
   }
 }
